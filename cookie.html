@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Cookie Clicker</title>
+    <style media="screen">
+      body{background-image: url("choco.png")}
+      img{width:400px}
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /*クッキーのカウンタ*/
+      cookie_count = 0;
+      function cookieClick() {
+      var count_text = document.getElementById('cookie_count');
+      count_text.textContent = cookie_count;
+      cookie_count++;
+      }
+    </script>
+    <p>
+      <span id="cookie_count"></span> Cookies
+    </p>
+    <img onclick="cookieClick()" src="cookie.webp" alt="">
+  </body>
+</html>

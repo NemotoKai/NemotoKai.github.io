@@ -5,20 +5,29 @@
     <title></title>
   </head>
   <body>
+    <input id="int1" type="text" name="" value="">
+    <input id="int2" type="text" name="" value="">
+    <button onclick="junta()" type="button" name="button">計算</button>
+
+    <br>
+    <hr>
+    計算結果：
+    <p id="result"></p>
+
+    </address>
+
     <script type="text/javascript">
       function junta() {
-        var element1 = document.getElementById('int1')
-        var element2 = document.getElementById('int2')
+        var element1 = document.getElementById('int1');
+        var element2 = document.getElementById('int2');
 
-        var result = parseInt(element1.value) + parseInt(element2.value)
+        var result = parseInt(element1.value) + parseInt(element2.value);
         //var result = element1.value + element2.value
-        alert(result);
+
+        var result_text = document.getElementById('result');
+        result_text.textContent = result;
+
       }
     </script>
-    <input id="int1" type="text" name="" value="">
-    <pr>+</pr>
-    <input id="int2" type="text" name="" value="">
-    <pr>=</pr>
-    <button onclick="junta()" type="button" name="button">計算</button>
   </body>
 </html>
