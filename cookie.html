@@ -4,23 +4,81 @@
     <meta charset="utf-8">
     <title>Cookie Clicker</title>
     <style media="screen">
-      body{background-image: url("choco.png")}
-      img{width:400px}
+      body{
+        background-image: url("choco.png");
+      }
+      img{
+        width:400px;
+      }
+
+      li,p{
+        color: #fff799;
+        transition: 0.2s;
+      }
+
+      li:hover{
+        color: #4caf50;
+      }
     </style>
   </head>
   <body>
     <script type="text/javascript">
+    localStorage.setItem('c_count', 0);
+    cookie_count = parseInt(localStorage.getItem('c_count', 0));
       /*クッキーのカウンタ*/
       cookie_count = 0;
-      function cookieClick() {
-      var count_text = document.getElementById('cookie_count');
-      count_text.textContent = cookie_count;
-      cookie_count++;
+      function cookieClick(num) {
+        var count_text = document.getElementById('cookie_count');
+        cookie_count += num;
+        count_text.textContent = cookie_count;
       }
+
+      function cursor() {
+        if(cookie_count>=15){
+          cookie_count -= 15;
+          setInterval("cookieClick(1)",1000);
+        }
+      }
+
+      function grandma() {
+        if(cookie_count>=100){
+          cookie_count -= 100;
+          setInterval("cookieClick(1)",1000);
+        }
+      }
+
+      function farm() {
+        if(cookie_count>=1100){
+          cookie_count -= 1100;
+          setInterval("cookieClick(8)",1000);
+        }
+      }
+
+      function mine() {
+        if(cookie_count>=12000){
+          cookie_count -= 12000;
+          setInterval("cookieClick(47)",1000);
+        }
+      }
+
+      function factory() {
+        if(cookie_count>=130000){
+          cookie_count -= 130000;
+          setInterval("cookieClick(260)",1000);
+        }
+      }
+
     </script>
     <p>
-      <span id="cookie_count"></span> Cookies
+      <span id="cookie_count">0</span> Cookies
     </p>
-    <img onclick="cookieClick()" src="cookie.webp" alt="">
+    <img onclick="cookieClick(1)" src="cookie.webp" alt="">
+    <ul>
+      <li onclick="cursor()">じゅんたカーソル</li>
+      <li onclick="grandma()">じゅんたグランマ</li>
+      <li onclick="farm()">じゅんたファーム</li>
+      <li onclick="mine()">じゅんたマイン</li>
+      <li onclick="factory()">じゅんたファクトリー</li>
+    </ul>
   </body>
 </html>
