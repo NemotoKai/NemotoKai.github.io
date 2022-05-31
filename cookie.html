@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
   <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
     <meta charset="utf-8">
     <title>Cookie Clicker</title>
     <style media="screen">
@@ -10,16 +15,20 @@
       img{
         width:400px;
       }
-
+      .container{display: flex;}
+      .item1{flex-grow: 2;}
+      .item2{flex-grow: 4;}
+      .item3{flex-grow: 3;}
       li,p{
         color: #fff799;
         transition: 0.2s;
         //cursor: progress;
       }
-
       li:hover{
         color: #4caf50;
+        transform: scale(1.2);
       }
+
     </style>
   </head>
   <body>
@@ -46,6 +55,10 @@
       }
 
       function cookieClick(num) {
+        var cookie_img = document.getElementById('cookie_img');
+        cookie_img.classList.remove('animate__animated', 'animate__shakeX');
+        void cookie_img.offsetWidth;
+        cookie_img.classList.add('animate__animated', 'animate__shakeX');
         cookie_count += num;
       }
 
@@ -85,16 +98,27 @@
       }
 
     </script>
-    <p>
-      <span id="cookie_count"></span> Cookies
-    </p>
-    <img onclick="cookieClick(1)" src="cookie.webp" alt="">
-    <ul>
-      <li onclick="cursor()">じゅんたカーソル</li>
-      <li onclick="grandma()">じゅんたグランマ</li>
-      <li onclick="farm()">じゅんたファーム</li>
-      <li onclick="mine()">じゅんたマイン</li>
-      <li onclick="factory()">じゅんたファクトリー</li>
-    </ul>
+
+    <div class="container"><!---div開始--->
+      <div class="item1">
+        <p>
+          <span id="cookie_count"></span> Cookies
+        </p>
+        <img id="cookie_img" onclick="cookieClick(1)" src="cookie.webp" alt="">
+      </div>
+      <div class="item2">
+        <p class="animate__animated animate__bounce">製作途中</p>
+      </div>
+      <div class="item3">
+        <ul>
+          <li onclick="cursor()">じゅんたカーソル</li>
+          <li onclick="grandma()">じゅんたグランマ</li>
+          <li onclick="farm()">じゅんたファーム</li>
+          <li onclick="mine()">じゅんたマイン</li>
+          <li onclick="factory()">じゅんたファクトリー</li>
+        </ul>
+      </div>
+    </div><!---div終わり--->
+
   </body>
 </html>
