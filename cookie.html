@@ -13,13 +13,30 @@
         background-image: url("choco.png");
       }
       img{
-        width:400px;
+        width: 400px;
       }
       .container{display: flex;}
-      .item1{flex-grow: 2;}
-      .item2{flex-grow: 4;}
-      .item3{flex-grow: 3;}
-      li,p{
+      .item1{
+        flex-grow: 2;
+        background-image: url("paper.webp");
+        float: right;
+        width: 70%;
+        height: 1000px;
+      }
+      .item2{
+        flex-grow: 4;
+        background-color: #113333;
+        color: #fff;
+        float: left;
+        width: 30%;
+      }
+      .item3{
+        flex-grow: 3;
+        background-color: #ABA;
+        float: left;
+        width: 40%;
+      }
+      li{
         color: #fff799;
         transition: 0.2s;
         //cursor: progress;
@@ -48,10 +65,14 @@
         localStorage.setItem('ls_count', cookie_count);
       }
 
-      setInterval(screen_update,100);
+      su_event_id = setInterval(screen_update,100);
       function screen_update() {
         var count_text = document.getElementById('cookie_count');
         count_text.textContent = cookie_count;
+      }
+
+      function event_clear() {
+        clearInterval(su_event_id);
       }
 
       function cookieClick(num) {
@@ -101,6 +122,7 @@
 
     <div class="container"><!---div開始--->
       <div class="item1">
+        <button id="screen_switch" onclick="event_clear()"  type="button" name="button">更新切り替え</button>
         <p>
           <span id="cookie_count"></span> Cookies
         </p>
