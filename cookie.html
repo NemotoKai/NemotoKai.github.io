@@ -11,30 +11,32 @@
     <style media="screen">
       body{
         background-image: url("choco.png");
+        margin: 0;
       }
       img{
-        width: 400px;
+        width: 70px;
       }
-      .container{display: flex;}
+      .container{
+        display: flex;
+        height: 100vh;
+      }
       .item1{
         flex-grow: 2;
         background-image: url("paper.webp");
-        float: right;
-        width: 70%;
-        height: 1000px;
       }
       .item2{
         flex-grow: 4;
-        background-color: #113333;
-        color: #fff;
-        float: left;
-        width: 30%;
+        background-color: #594e52;
       }
       .item3{
         flex-grow: 3;
-        background-color: #ABA;
-        float: left;
-        width: 40%;
+        //background-color: #bb5535;
+        background: linear-gradient(
+          90deg,
+          rgb(0, 20, 20),
+          rgb(20, 55, 90),
+          rgb(33, 3, 54)
+        );
       }
       li{
         color: #fff799;
@@ -50,8 +52,11 @@
   </head>
   <body>
     <script type="text/javascript">
-      /*クッキーのカウンタ*/
 
+      /*インターバルIDの格納先*/
+      let event_ids = [];
+
+      /*クッキーのカウンタ*/
       let ls_count = localStorage.getItem("ls_count");
 
       if (ls_count) {
@@ -83,38 +88,86 @@
         cookie_count += num;
       }
 
+      /*購入の処理*/
       function cursor() {
         if(cookie_count>=15){
           cookie_count -= 15;
-          setInterval("cookieClick(1)",10000);
+          /*event_idsにIDをpush*/
+          let r_id = setInterval("cookieClick(1)",10000);
+          event_ids.push(r_id);
         }
       }
 
       function grandma() {
         if(cookie_count>=100){
           cookie_count -= 100;
-          setInterval("cookieClick(1)",1000);
+          let r_id = setInterval("cookieClick(1)",1000);
+          event_ids.push(r_id);
         }
       }
 
       function farm() {
         if(cookie_count>=1100){
           cookie_count -= 1100;
-          setInterval("cookieClick(8)",1000);
+          let r_id = setInterval("cookieClick(8)",1000);
+          event_ids.push(r_id);
         }
       }
 
       function mine() {
         if(cookie_count>=12000){
           cookie_count -= 12000;
-          setInterval("cookieClick(47)",1000);
+          let r_id = setInterval("cookieClick(47)",1000);
+          event_ids.push(r_id);
         }
       }
 
       function factory() {
         if(cookie_count>=130000){
           cookie_count -= 130000;
-          setInterval("cookieClick(260)",1000);
+          let r_id = setInterval("cookieClick(260)",1000);
+          event_ids.push(r_id);
+        }
+      }
+
+      /*売却の処理*/
+      function sell_cursor() {
+        if(event_ids.length > 0){
+          let r_id = event_ids.pop();
+          clearInterval(r_id);
+          cookie_count += 15;
+        }
+      }
+
+      function sell_grandma() {
+        if(event_ids.length > 0){
+          let r_id = event_ids.pop();
+          clearInterval(r_id);
+          cookie_count += 100;
+        }
+      }
+
+      function sell_farm() {
+        if(event_ids.length > 0){
+          let r_id = event_ids.pop();
+          clearInterval(r_id);
+          cookie_count += 1100;
+        }
+      }
+
+      function sell_mine() {
+        if(event_ids.length > 0){
+          let r_id = event_ids.pop();
+          clearInterval(r_id);
+          cookie_count += 12000;
+        }
+      }
+
+      function  sell_factory() {
+        if(event_ids.length > 0){
+          let r_id = event_ids.pop();
+          clearInterval(r_id);
+          cookie_count += 130000;
         }
       }
 
@@ -132,12 +185,21 @@
         <p class="animate__animated animate__bounce">製作途中</p>
       </div>
       <div class="item3">
+        購入
         <ul>
           <li onclick="cursor()">じゅんたカーソル</li>
           <li onclick="grandma()">じゅんたグランマ</li>
           <li onclick="farm()">じゅんたファーム</li>
           <li onclick="mine()">じゅんたマイン</li>
           <li onclick="factory()">じゅんたファクトリー</li>
+        </ul>
+        売却
+        <ul>
+          <li onclick="sell_cursor()">じゅんたカーソル</li>
+          <li onclick="sell_grandma()">じゅんたグランマ</li>
+          <li onclick="sell_farm()">じゅんたファーム</li>
+          <li onclick="sell_mine()">じゅんたマイン</li>
+          <li onclick="sell_factory()">じゅんたファクトリー</li>
         </ul>
       </div>
     </div><!---div終わり--->
