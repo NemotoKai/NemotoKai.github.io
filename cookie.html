@@ -26,26 +26,34 @@
       }
       .item2{
         flex-grow: 4;
-        background-color: #594e52;
+        background-color: #88bfbf;
+        /*background: linear-gradient(
+          341deg,
+          rgb(297, 200, 100),
+          rgb(80, 40, 40)
+        );*/
       }
       .item3{
         flex-grow: 3;
-        //background-color: #bb5535;
-        background: linear-gradient(
-          90deg,
-          rgb(0, 20, 20),
-          rgb(20, 55, 90),
-          rgb(33, 3, 54)
-        );
+        background-color: #67b5b7;
+        /*background: linear-gradient(
+          19deg,
+          rgb(297, 200, 100),
+          rgb(80, 40, 40)
+        );*/
       }
       li{
         color: #fff799;
-        transition: 0.2s;
+        transition: 0.1s;
         //cursor: progress;
       }
       li:hover{
-        color: #4caf50;
-        transform: scale(1.2);
+        color: #e95464;
+        //transform: scale(1.2);
+      }
+      span:hover{
+        color: #e95464;
+        //transform: scale(1.2);
       }
 
     </style>
@@ -171,6 +179,13 @@
         }
       }
 
+      /*施設切り替え処理*/
+
+      function buildings_switch() {
+        let list_ele = document.getElementById('buildings_buy');
+        list_ele.style.display = "none";
+      }
+
     </script>
 
     <div class="container"><!---div開始--->
@@ -185,22 +200,26 @@
         <p class="animate__animated animate__bounce">製作途中</p>
       </div>
       <div class="item3">
-        購入
-        <ul>
-          <li onclick="cursor()">じゅんたカーソル</li>
-          <li onclick="grandma()">じゅんたグランマ</li>
-          <li onclick="farm()">じゅんたファーム</li>
-          <li onclick="mine()">じゅんたマイン</li>
-          <li onclick="factory()">じゅんたファクトリー</li>
-        </ul>
-        売却
-        <ul>
-          <li onclick="sell_cursor()">じゅんたカーソル</li>
-          <li onclick="sell_grandma()">じゅんたグランマ</li>
-          <li onclick="sell_farm()">じゅんたファーム</li>
-          <li onclick="sell_mine()">じゅんたマイン</li>
-          <li onclick="sell_factory()">じゅんたファクトリー</li>
-        </ul>
+        <div id="buildings_buy"><!--購入div-->
+          <span onclick="buildings_switch()">購入</span>
+          <ul>
+            <li onclick="cursor()">じゅんたカーソル</li>
+            <li onclick="grandma()">じゅんたグランマ</li>
+            <li onclick="farm()">じゅんたファーム</li>
+            <li onclick="mine()">じゅんたマイン</li>
+            <li onclick="factory()">じゅんたファクトリー</li>
+          </ul>
+        </div><!------------------------------------------>
+        <div class="buildings_sell"><!--売却div-->
+          <span onclick="buildings_switch()">売却</span>
+          <ul>
+            <li onclick="sell_cursor()">じゅんたカーソル</li>
+            <li onclick="sell_grandma()">じゅんたグランマ</li>
+            <li onclick="sell_farm()">じゅんたファーム</li>
+            <li onclick="sell_mine()">じゅんたマイン</li>
+            <li onclick="sell_factory()">じゅんたファクトリー</li>
+          </ul>
+        </div><!------------------------------------------>
       </div>
     </div><!---div終わり--->
 
