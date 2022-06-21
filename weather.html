@@ -32,13 +32,31 @@
             }
         }
 
-        array = ["2022-6-16",
+        date = new Date();
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        day = date.getDate();
+        var dArray = [7];
+        for(var i=0;i<7;i++){
+            dArray[i] = year + "-" + month + "-" + (day+i);
+        }
+
+        /*array = ["2022-6-16",
                  "2022-6-17",
                  "2022-6-18",
                  "2022-6-19",
                  "2022-6-20",
                  "2022-6-21",
                  "2022-6-22"];
+        */
+
+        array = [dArray[0],
+                 dArray[1],
+                 dArray[2],
+                 dArray[3],
+                 dArray[4],
+                 dArray[5],
+                 dArray[6]];
 
         let tr_date = document.getElementById('date');
         array.forEach(function(date) {
