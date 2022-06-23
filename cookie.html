@@ -1,222 +1,246 @@
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
-  <head>
+<head>
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
 
     <meta charset="utf-8">
     <title>Cookie Clicker</title>
     <style media="screen">
-      body{
+    body{
         background-image: url("choco.png");
         margin: 0;
-      }
-      img{
+    }
+    img{
         width: 70px;
-      }
-      .container{
+    }
+    .container{
         display: flex;
         height: 100vh;
-      }
-      .item1{
+    }
+    .item1{
         flex-grow: 2;
         background-image: url("paper.webp");
-      }
-      .item2{
+    }
+    .item2{
         flex-grow: 4;
-        background-color: #88bfbf;
-        /*background: linear-gradient(
-          341deg,
-          rgb(297, 200, 100),
-          rgb(80, 40, 40)
-        );*/
-      }
-      .item3{
-        flex-grow: 3;
         background-color: #67b5b7;
         /*background: linear-gradient(
-          19deg,
-          rgb(297, 200, 100),
-          rgb(80, 40, 40)
+        341deg,
+        rgb(297, 200, 100),
+        rgb(80, 40, 40)
         );*/
-      }
-      li{
+    }
+    .item3{
+        flex-grow: 3;
+        background-color:#fff1cf;
+        /*background: linear-gradient(
+        19deg,
+        rgb(297, 200, 100),
+        rgb(80, 40, 40)
+        );*/
+    }
+    li{
         color: #000000;
         transition: 0.1s;
         //cursor: progress;
-      }
-      li:hover{
+    }
+    li:hover{
         color: #e6e6e6;
         //transform: scale(1.2);
-      }
-      span:hover{
+    }
+    span:hover{
         color: #e95464;
         //transform: scale(1.2);
-      }
+    }
 
-      /*idを表すのは「#」*/
-      #buildings_sell{
+    p{
+        font-size: 18px;
+    }
+
+    /*idを表すのは「#」*/
+    #buildings_sell{
         display: none;
-      }
+    }
 
-      buy{
-        color: #fff799;
+    buy{
+        color: #b44c97;
         transition: 0.1s;
-      }
+    }
 
-      buy:hover{
-        color: #ffd500;
-      }
-
-      sell{
-        color: #f0fff0;
-        transition: 0.1s;
-      }
-
-      sell:hover{
+    buy:hover{
         color: #ffeccc;
-      }
+    }
+
+    sell{
+        color: #b44c97;
+        transition: 0.1s;
+    }
+
+    sell:hover{
+        color: #ffeccc;
+    }
+
+    hr{
+        height: 3px;
+        background-color: #513d66;
+        border-color: black;
+    }
 
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <script type="text/javascript">
 
-      /*インターバルIDの格納先*/
-      let event_ids = [];
+    /*インターバルIDの格納先*/
+    let event_ids = [];
 
-      /*クッキーのカウンタ*/
-      let ls_count = localStorage.getItem("ls_count");
+    /*クッキーのカウンタ*/
+    let ls_count = localStorage.getItem("ls_count");
 
-      if (ls_count) {
+    if (ls_count) {
         cookie_count = parseInt(ls_count);
-      }else{
+    }else{
         cookie_count = 0;
-      }
+    }
 
 
 
-      setInterval(save_action,1000);
-      function save_action() {
+    setInterval(save_action,1000);
+    function save_action() {
         localStorage.setItem('ls_count', cookie_count);
-      }
+    }
 
 
-      //start クラス
-      class Building{
-          constructor(time,num,cost){
-              this.event_ids = [];
-              this.interval_time = time;
-              this.add_num = num;
-              this.cost = cost;
-          }
+    //start クラス
+    class Building{
+        constructor(time,num,cost){
+            this.event_ids = [];
+            this.interval_time = time;
+            this.add_num = num;
+            this.cost = cost;
+        }
 
-          //カウントアップメソッド
-          count_up(num){
-              cookie_count += num;
-          }
-
-
-          //購入した場合
-          buy(){
-              let self = this;
-              if(cookie_count >= this.cost){
-                  cookie_count -= this.cost;
-              }
-              let return_id = setInterval(function(){
-                  self.count_up(self.add_num);
-              }, 1000);
-              this.event_ids.push(return_id);
-          }
-
-          //売却した場合
-          sell(){
-              let return_id = this.event_ids.pop();
-              cookie_count += this.cost;
-              clearInterval(return_id);
-          }
-      };
-      //end クラス
-
-      //施設オブジェクト
-      let cursor = new Building(10000, 1, 15);
-      let grandma = new Building(1000, 1, 100);
-      let farm = new Building(1000, 8, 1000);
-      let mine = new Building(1000, 47, 10000);
-      let factory = new Building(1000, 260, 100000);
+        //カウントアップメソッド
+        count_up(num){
+            cookie_count += num;
+        }
 
 
-      su_event_id = setInterval(screen_update,100);
-      function screen_update() {
+        //購入した場合
+        buy(){
+            let self = this;
+            if(cookie_count >= this.cost){
+                cookie_count -= this.cost;
+            }
+
+            let return_id = setInterval(function(){
+                self.count_up(self.add_num);
+            }, self.interval_time);
+
+            this.event_ids.push(return_id);
+            //console.log(this.event_ids.length);
+        }
+
+        //売却した場合
+        sell(){
+            //console.log(this.event_ids.length);
+            if(this.event_ids.length > 0){
+                cookie_count += this.cost;
+                //console.log("+");
+            }
+            let return_id = this.event_ids.pop();
+            clearInterval(return_id);
+            //console.log(this.event_ids.length);
+        }
+    };
+    //end クラス
+
+    //施設オブジェクト
+    let cursor = new Building(10000, 1, 15);
+    let grandma = new Building(1000, 1, 100);
+    let farm = new Building(1000, 8, 1000);
+    let mine = new Building(1000, 47, 10000);
+    let factory = new Building(1000, 260, 100000);
+
+
+    su_event_id = setInterval(screen_update,100);
+    function screen_update() {
         var count_text = document.getElementById('cookie_count');
         count_text.textContent = cookie_count;
-      }
+    }
 
-      function event_clear() {
+    function event_clear() {
         clearInterval(su_event_id);
-      }
+    }
 
-      function cookieClick(num) {
+    function cookieClick(num) {
         var cookie_img = document.getElementById('cookie_img');
         cookie_img.classList.remove('animate__animated', 'animate__shakeX');
         void cookie_img.offsetWidth;
         cookie_img.classList.add('animate__animated', 'animate__shakeX');
         cookie_count += num;
-      }
+    }
 
-      /*施設切り替え処理*/
+    /*施設切り替え処理*/
 
-      function buildings_switch() {
+    function buildings_switch() {
         let buy_ele = document.getElementById('buildings_buy');
         let sell_ele = document.getElementById('buildings_sell');
 
         if (buy_ele.style.display != "none") {
-          buy_ele.style.display = "none";   //消す
-          sell_ele.style.display = "block"; //表示
+            buy_ele.style.display = "none";   //消す
+            sell_ele.style.display = "block"; //表示
         }else{
-          buy_ele.style.display = "block";
-          sell_ele.style.display = "none";
+            buy_ele.style.display = "block";
+            sell_ele.style.display = "none";
         }
-      }
+    }
 
     </script>
 
     <div class="container"><!---div開始--->
-      <div class="item1">
-        <button id="screen_switch" onclick="event_clear()"  type="button" name="button">更新切り替え</button>
-        <p>
-          <span id="cookie_count"></span> Cookies
-        </p>
-        <img id="cookie_img" onclick="cookieClick(1)" src="cookie.webp" alt="">
-      </div>
-      <div class="item2">
-        <p class="animate__animated animate__bounce">製作途中</p>
-      </div>
-      <div class="item3">
-        <div id="buildings_buy"><!--購入div-->
-          <button onclick="buildings_switch()">購入</button>
-          <ul>
-            <li onclick="cursor.buy()"><buy>じゅんたカーソル</buy></li>
-            <li onclick="grandma.buy()"><buy>じゅんたグランマ</buy></li>
-            <li onclick="farm.buy()"><buy>じゅんたファーム</buy></li>
-            <li onclick="mine.buy()"><buy>じゅんたマイン</buy></li>
-            <li onclick="factory.buy()"><buy>じゅんたファクトリー</buy></li>
-          </ul>
-        </div><!------------------------------------------>
-        <div id="buildings_sell"><!--売却div-->
-          <button onclick="buildings_switch()">売却</button>
-          <ul>
-            <li onclick="cursor.sell()"><sell>じゅんたカーソル</sell></li>
-            <li onclick="grandma.sell()"><sell>じゅんたグランマ</sell></li>
-            <li onclick="farm.sell()"><sell>じゅんたファーム</sell></li>
-            <li onclick="mine.sell()"><sell>じゅんたマイン</sell></li>
-            <li onclick="factory.sell()"><sell>じゅんたファクトリー</sell></li>
-          </ul>
-        </div><!------------------------------------------>
-      </div>
+        <div class="item1">
+            <button id="screen_switch" onclick="event_clear()"  type="button" name="button">更新切り替え</button>
+            <p>
+                <span id="cookie_count"></span> Cookies
+            </p>
+            <img id="cookie_img" onclick="cookieClick(1)" src="cookie.webp" alt="">
+        </div>
+        <div class="item2">
+            <p class="animate__animated animate__bounce">製作途中</p>
+        </div>
+        <div class="item3">
+            <div id="buildings_buy"><!--購入div-->
+                <button style="background-color: #38a1db;" onclick="buildings_switch()">売却へ</button>
+                <hr>
+                <p style="text-align: center;">購入</p>
+                <hr>
+                <ul>
+                    <li onclick="cursor.buy()"><buy>じゅんたカーソル</buy></li>
+                    <li onclick="grandma.buy()"><buy>じゅんたグランマ</buy></li>
+                    <li onclick="farm.buy()"><buy>じゅんたファーム</buy></li>
+                    <li onclick="mine.buy()"><buy>じゅんたマイン</buy></li>
+                    <li onclick="factory.buy()"><buy>じゅんたファクトリー</buy></li>
+                </ul>
+            </div><!------------------------------------------>
+            <div id="buildings_sell"><!--売却div-->
+                <button style="background-color: #39db9a;" onclick="buildings_switch()">購入へ</button>
+                <hr>
+                <p style="text-align: center">売却</p>
+                <hr>
+                <ul>
+                    <li onclick="cursor.sell()"><sell>じゅんたカーソル</sell></li>
+                    <li onclick="grandma.sell()"><sell>じゅんたグランマ</sell></li>
+                    <li onclick="farm.sell()"><sell>じゅんたファーム</sell></li>
+                    <li onclick="mine.sell()"><sell>じゅんたマイン</sell></li>
+                    <li onclick="factory.sell()"><sell>じゅんたファクトリー</sell></li>
+                </ul>
+            </div><!------------------------------------------>
+        </div>
     </div><!---div終わり--->
 
-  </body>
+</body>
 </html>
