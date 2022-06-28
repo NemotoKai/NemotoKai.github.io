@@ -1,70 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <title></title>
     <style media="screen">
-        table,tr,td,th{
-            border: 1px;
-        }
+    table,tr,td,th{border: 1px solid black;}
     </style>
-  </head>
-  <body>
+</head>
+<body>
+    <table>
+        <tr id="date">
 
-      <table>
-          <tr id = "date">
-          </tr>
-          <tr id = "weather">
-          </tr>
-      </table>
+        </tr>
+        <tr id="weather">
 
+        </tr>
 
+    </table>
     <script type="text/javascript">
-        var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
 
-        xhr.open('GET', "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&daily=weathercode&timezone=Asia%2FTokyo");
-        xhr.send();
+    xhr.open('GET', "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&daily=weathercode&timezone=Asia%2FTokyo");
+    xhr.send();
 
-        xhr.onreadystatechange = function() {
-            if(xhr.readyState === 4 && xhr.status === 200) {
-                let weathercode = JSON.parse(xhr.responseText)["daily"]["weathercode"][1];
-                //document.write(weathercode);
-            }
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4 && xhr.status === 200) {
+            let weather_data = JSON.parse(xhr.responseText)
+
+            let date_array = weather_data.daily.time;
+            let weather_array = weather_data.daily.weathercode;
+
+            createWeatherTable(date_array, weather_array);
         }
+    }
 
-        date = new Date();
-        year = date.getFullYear();
-        month = date.getMonth() + 1;
-        day = date.getDate();
-        var dArray = [7];
-        for(var i=0;i<7;i++){
-            dArray[i] = year + "-" + month + "-" + (day+i);
-        }
-
-        /*array = ["2022-6-16",
-                 "2022-6-17",
-                 "2022-6-18",
-                 "2022-6-19",
-                 "2022-6-20",
-                 "2022-6-21",
-                 "2022-6-22"];
-        */
-
-        array = [dArray[0],
-                 dArray[1],
-                 dArray[2],
-                 dArray[3],
-                 dArray[4],
-                 dArray[5],
-                 dArray[6]];
-
-        let tr_date = document.getElementById('date');
-        array.forEach(function(date) {
-            tr_date.innerHTML = tr_date.innerHTML + date + "<br>";
+    function createWeatherTable(date_array, weather_array) {
+        let t_date = document.getElementById('date');
+        let t_weather = document.getElementById('weather');
+        date_array.forEach(function(date,i){
+            t_date.innerHTML = t_date.innerHTML + "<th>" + date + "</th>";
+            t_weather.innerHTML = t_weather.innerHTML + "<th>" + weather_array[i] + "</th>";
         });
+    }
+
 
     </script>
-    <!--天気予報情報テーブル-->
 
-  </body>
+
+
+</body>
 </html>
