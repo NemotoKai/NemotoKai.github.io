@@ -1,49 +1,40 @@
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Patitter home</title>
+<head>
+  <meta charset="utf-8">
+  <title>Patitter home</title>
 
-        <style media="screen">
-        .container{
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+  <link rel="stylesheet" href="patiss.css">
 
-        #timeline{
-            width: 600px;
-            border-width: 0px thin;
-            border-style: solid;
-            border-color: #CCC;
-        }
-
-        .tweet{
-            display:flex;
-            border-width: 0px 0px 1px 0px;
-            border-style: solid;
-            border-color: #CCC;
-            padding:15px;
-        }
-
-        .icon{width:70px;}
-        .icon img{width:50px;border-radius: 50%; }
-
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="timeline">
-                <div class="tweet">
-                    <div class="icon">
-                        <img src="egg.png" alt="">
-                    </div>
-                    <div class="tweet_box">
-
-                    </div>
-                </div>
-            </div>
+</head>
+<body>
+  <div class="container">
+    <div id="timeline">
+      <div class="tweet">
+        <div class="icon">
+          <img src="parrot.gif" alt="">
         </div>
+        <div class="tweet_box">
+          <div class="username">
+            NullPointerException
+            <span class="name">@hogehoge</span>
+            <span class="date">2022/7/5</span>
+          </div>
+          <div class="text">
+            コメント-----------------
+            -------------------------
+            -------------------------
+          </div>
+          <div class="action">
+            <span class="icon_chat">110</span>
+            <span class="icon_fav">0</span>
+            <span class="icon_res">27</span>
+            <span class="icon_share">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    </body>
+</body>
 </html>
