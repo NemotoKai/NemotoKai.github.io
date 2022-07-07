@@ -1,3 +1,12 @@
+body{
+  //background-color: #e6e6e6;
+}
+
+hr{
+  //border-color: #f7cfc6;
+  animation: 1s rainbow_line linear infinite;
+}
+
 .container{
     display: flex;
     justify-content: center;
@@ -8,20 +17,51 @@
     width: 600px;
     border-width: 0px thin;
     border-style: solid;
-    border-color: #CCC;
+    border-color: #f7cfc6;
+    //animation: 1s rainbow_line linear infinite;
 }
 
 .tweet{
     display:flex;
     border-width: 0px 0px 1px 0px;
     border-style: solid;
-    border-color: #CCC;
+    border-color: #f7cfc6;
+    //animation: 1s rainbow_line linear infinite;
     padding:15px;
 }
 
 .icon{width:70px;}
-.icon img{width:50px;border-radius: 50%;}
+.icon img{
+  width:50px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: thin;
+  background-color: #EEE;
+  //animation: 1s rainbow linear infinite;
+}
 /*アイコン大きさ*/
+
+@keyframes rainbow{
+    0%{background: #e60000}
+    14%{background: #f39800}
+    28%{background: #fff100}
+    42%{background: #009944}
+    56%{background: #0068b7}
+    70%{background: #1d2088}
+    85%{background: #920783}
+    100%{background: #e60000}
+}
+
+@keyframes rainbow_line{
+    0%{border-color: #e60000}
+    14%{border-color: #f39800}
+    28%{border-color: #fff100}
+    42%{border-color: #009944}
+    56%{border-color: #0068b7}
+    70%{border-color: #1d2088}
+    85%{border-color: #920783}
+    100%{border-color: #e60000}
+}
 
 .username{font-weight: bold;}
 /*文字の太さ*/
