@@ -11,62 +11,69 @@
   <div class="container">
     <div id="timeline">
       <div class="tweet">
-        <div class="icon">
-          <img src="egg.png" alt="">
-        </div>
-        <div class="tweet_box">
-          <div class="username">
-            NullPointerException
-            <span class="name">@hogehoge</span>
-            <span class="date">2022/7/5</span>
-          </div>
-          <div class="text">
-            コメント
-          </div>
-          <div class="action">
-            <span class="icon_chat">110</span>
-            <span class="icon_fav">0</span>
-            <span class="icon_res">27</span>
-            <span class="icon_share">0</span>
-          </div>
-        </div>
+        <input type="text" id="input_text" placeholder="ここに入力してね！" name="" value="">
+        <button type="form_tweet()" type="submit">送信</button>
       </div>
     </div>
   </div>
 
   <script type="text/javascript">
     let timeline = document.getElementById('timeline');
-    let tweets = [{"text":"こんにちは", "username":"sakamoto"},
-                  {"text":"こんばんは", "username":"smoto"},
-                  {"text":"実際のところは", "username":"こんちゃ"},
-                  {"text":"おはよう", "username":"？？？？"},
-                  {"text":"坂本", "username":"ぼく、アルバイトォーー！！！！"},
-                  {"text":"ちゃんたー", "username":"俺だよ俺"}];
+    /*let tweets = [{"text":"こんにちは", "username":"sakamoto", "name":"@hogehoge"},
+                  {"text":"こんばんは", "username":"smoto", "name":"@String"},
+                  {"text":"実際のところは", "username":"こんちゃ", "name":"@lolBeansOfficial"},
+                  {"text":"おはよう", "username":"？？？？", "name":"@????"},
+                  {"text":"坂本", "username":"ぼく、アルバイトォーー！！！！", "name":"@alter"},
+                  {"text":"ちゃんたー", "username":"俺だよ俺", "name":"@sagi"}];
+    */
+    viewTweet();
 
-    tweets.forEach((tweet, i) => {
-      let template = `<div class="tweet">
-          <div class="icon">
-            <img src="egg.png" alt="">
-          </div>
-          <div class="tweet_box">
-            <div class="username">
-            ${tweet.username}
-              <span class="name">@hogehoge</span>
-              <span class="date">2022/7/5</span>
+    async function viewTweet() {
+      let tweets = await getJson();
+      appendTweet(tweets);
+    }
+
+    async function getJson() {
+      let response = await(await fetch("http://192.168.0.90/timeline.json")).json();
+      return response;
+    }
+
+    function appendTweet(tweets) {
+      tweets.forEach((tweet, i) => {
+        let template = `<div class="tweet">
+            <div class="icon">
+              <img src="egg.png" alt="">
             </div>
-            <div class="text">
-              ${tweet.text}
+            <div class="tweet_box">
+              <div class="username">
+              ${tweet.username}
+                <span class="name">@${tweet.name}</span>
+                <span class="date">2022/7/5</span>
+              </div>
+              <div class="text">
+                ${tweet.text}
+              </div>
+              <div class="action">
+                <span class="icon_chat">110</span>
+                <span class="icon_fav">0</span>
+                <span class="icon_res">27</span>
+                <span class="icon_share">0</span>
+              </div>
             </div>
-            <div class="action">
-              <span class="icon_chat">110</span>
-              <span class="icon_fav">0</span>
-              <span class="icon_res">27</span>
-              <span class="icon_share">0</span>
-            </div>
-          </div>
-        </div>`;
-      timeline.innerHTML = timeline.innerHTML + template;
-    });
+          </div>`;
+        timeline.innerHTML = timeline.innerHTML + template;
+      });
+    }
+
+    //書き込み処理
+    async function post_tweet(text, name, username) {
+      let send_data = "?name" + name + "&username" + username "&text" + text;
+      let res_data = await (await fetch("./tweet.rb" + send_data)).text();
+      if(res_data != "OK"){
+        alert(res_data);
+      }
+    };
+
   </script>
 </body>
 </html>
