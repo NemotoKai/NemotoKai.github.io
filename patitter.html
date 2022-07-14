@@ -12,21 +12,31 @@
     <div id="timeline">
       <div class="tweet">
         <input type="text" id="input_text" placeholder="ここに入力してね！" name="" value="">
-        <button type="form_tweet()" type="submit">送信</button>
+        <button onclick="form_tweet()" type="submit">送信</button>
       </div>
     </div>
   </div>
 
   <script type="text/javascript">
     let timeline = document.getElementById('timeline');
-    /*let tweets = [{"text":"こんにちは", "username":"sakamoto", "name":"@hogehoge"},
-                  {"text":"こんばんは", "username":"smoto", "name":"@String"},
-                  {"text":"実際のところは", "username":"こんちゃ", "name":"@lolBeansOfficial"},
-                  {"text":"おはよう", "username":"？？？？", "name":"@????"},
-                  {"text":"坂本", "username":"ぼく、アルバイトォーー！！！！", "name":"@alter"},
-                  {"text":"ちゃんたー", "username":"俺だよ俺", "name":"@sagi"}];
-    */
-    viewTweet();
+
+    //フォーム内容を書き込む
+    function form_tweet() {
+      let input_text = document.getElementById('input_text');
+      if(input_text.value != ""){
+        post_tweet(input_text.value, "遠足中止", "破道の九十「ジュタ棺」");
+        input_text.value = "";
+      }
+    }
+
+    //書き込み処理
+    async function post_tweet(text, name, username) {
+      let send_data = "?name=" + name + "&username=" + username + "&text=" + text;
+      let res_data = await (await fetch("http://192.168.0.90/tweet.rb" + send_data)).text();
+      if(res_data != "OK"){
+        alert(res_data);
+      }
+    };
 
     async function viewTweet() {
       let tweets = await getJson();
@@ -64,15 +74,7 @@
         timeline.innerHTML = timeline.innerHTML + template;
       });
     }
-
-    //書き込み処理
-    async function post_tweet(text, name, username) {
-      let send_data = "?name" + name + "&username" + username "&text" + text;
-      let res_data = await (await fetch("./tweet.rb" + send_data)).text();
-      if(res_data != "OK"){
-        alert(res_data);
-      }
-    };
+    viewTweet();
 
   </script>
 </body>
