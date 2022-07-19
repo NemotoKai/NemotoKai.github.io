@@ -24,7 +24,7 @@
     function form_tweet() {
       let input_text = document.getElementById('input_text');
       if(input_text.value != ""){
-        post_tweet(input_text.value, "遠足中止", "破道の九十「ジュタ棺」");
+        post_tweet(input_text.value, "課題やばい", "傀異化J");
         input_text.value = "";
       }
     }
@@ -41,6 +41,7 @@
     async function viewTweet() {
       let tweets = await getJson();
       appendTweet(tweets);
+      setTimeout(viewTweet, 15000);
     }
 
     async function getJson() {
@@ -48,7 +49,19 @@
       return response;
     }
 
+/*
+    async function updateTweet() {
+      let array = await (await fetch());
+
+    }
+*/
+
     function appendTweet(tweets) {
+      let old_tweets = document.getElementsByClassName("tweet");
+      while(old_tweets.length>2){
+        old_tweets.item(1).remove();
+      }
+
       tweets.forEach((tweet, i) => {
         let template = `<div class="tweet">
             <div class="icon">
@@ -56,12 +69,12 @@
             </div>
             <div class="tweet_box">
               <div class="username">
-              ${tweet.username}
-                <span class="name">@${tweet.name}</span>
+              ${escapeText(tweet.username)}
+                <span class="name">@${escapeText(tweet.name)}</span>
                 <span class="date">2022/7/5</span>
               </div>
               <div class="text">
-                ${tweet.text}
+                ${escapeText(tweet.text)}
               </div>
               <div class="action">
                 <span class="icon_chat">110</span>
@@ -74,6 +87,13 @@
         timeline.innerHTML = timeline.innerHTML + template;
       });
     }
+
+    function escapeText(text){
+      let element = document.createElement("div");
+      element.textContent = text;
+      return element.innerHTML.replace(/\n/g,"<br>");
+    }
+
     viewTweet();
 
   </script>

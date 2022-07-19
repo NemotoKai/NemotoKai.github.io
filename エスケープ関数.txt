@@ -1,0 +1,6 @@
+
+function escapeText(text){
+  let element = document.createElement("div");
+  element.textContent = text;
+  return element.innerHTML.replace(/\n/g,"<br>");
+}
