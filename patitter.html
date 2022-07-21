@@ -12,7 +12,7 @@
     <div id="timeline">
       <div class="tweet">
         <input type="text" id="input_text" placeholder="ここに入力してね！" name="" value="">
-        <button onclick="form_tweet()" type="submit">送信</button>
+        <button class="tw_button" onclick="form_tweet()" type="submit">送信</button>
       </div>
     </div>
   </div>
@@ -41,26 +41,21 @@
     async function viewTweet() {
       let tweets = await getJson();
       appendTweet(tweets);
-      setTimeout(viewTweet, 15000);
+      setTimeout(viewTweet, 5000);
     }
 
     async function getJson() {
-      let response = await(await fetch("http://192.168.0.90/timeline.json")).json();
+      let response = await(await fetch("http://192.168.0.90/timeline.json?")).json();
       return response;
     }
 
-/*
-    async function updateTweet() {
-      let array = await (await fetch());
-
-    }
-*/
-
     function appendTweet(tweets) {
       let old_tweets = document.getElementsByClassName("tweet");
-      while(old_tweets.length>2){
+      while(old_tweets.length > 1){
         old_tweets.item(1).remove();
       }
+
+      let tmp_tweets = "";
 
       tweets.forEach((tweet, i) => {
         let template = `<div class="tweet">
@@ -84,8 +79,9 @@
               </div>
             </div>
           </div>`;
-        timeline.innerHTML = timeline.innerHTML + template;
+          tmp_tweets += template;
       });
+      timeline.innerHTML += tmp_tweets;
     }
 
     function escapeText(text){
